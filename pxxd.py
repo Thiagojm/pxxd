@@ -1,32 +1,17 @@
 from bitstring import BitArray, BitStream
+from textwrap import wrap
 
 
-with open('teste.bin', "rb") as file:
-    a2 = BitArray(file)
-    print(a2.bin)
+with open('teste.bin', "rb") as file: # open binary file
+    bin_hex = BitArray(file) # bin to hex
+bin_ascii = bin_hex.bin
+print("Here are the bits: " + str(bin_ascii))
+total_bits = len(bin_ascii)
+print("Total number of bits is: " + str(total_bits))
+num_ones_array = [] 
+split_bin_ascii = wrap(bin_ascii, 256) # split in 256 bits per line
+for i in split_bin_ascii: # calculate number of 'ones' in each of the 256bits lines
+    num_ones_array.append(i.count('1'))
 
-
-
-
-
-
-
-
-
-
-#my_str = '00100111'
-#binary_file = open('file.bin', 'wb')
-#b = BitArray(bin=my_str)
-#b.tofile(binary_file)
-#binary_file.close()
-
-
-
-
-
-
-
-
-
-
-#print(hex(int("100101011", 2)))
+print("Here are the bits splites: " + str(split_bin_ascii))
+print("Number of ones in each line: " + str(num_ones_array))
