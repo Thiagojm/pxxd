@@ -1,18 +1,20 @@
 from bitstring import BitArray, BitStream
 from textwrap import wrap
-import timeit
+#import timeit
 import pandas as pd
 
 
-global binFile
 global num_ones_array
 
 
+inputFile = input("Name of the file: ")
+
+
 def fileBinToAscii():
+    global inputFile
     global num_ones_array
-    global binFile
     num_ones_array = []
-    with open('file.bin', "rb") as file: # open binary file
+    with open(inputFile, "rb") as file: # open binary file
         bin_hex = BitArray(file) # bin to hex
     bin_ascii = bin_hex.bin
     #print("Here are the bits: " + str(bin_ascii))
@@ -37,7 +39,7 @@ binSheet['Sum'] = binSheet['Ones'].cumsum()
 binSheet['Average'] = binSheet['Sum']/(binSheet['Time'])
 binSheet['Zscore'] = (binSheet['Average']-1024)/(22.62741699796/(binSheet['Time']**0.5))
 
-file_to_save = "file.xlsx"      #data_file.replace(".bin", ".xlsx")
+file_to_save = inputFile.replace(".bin", ".xlsx")
 #data_file2 = os.path.basename(data_file)
 #data_file2 = data_file2.replace(".csv", "")
 number_rows = len(binSheet.Time)
@@ -82,17 +84,7 @@ chart.add_series({'values': ['Z-Test', 1, 4, number_rows, 4],
                   'categories': ['Z-Test', 1, 0, number_rows, 0]})
 worksheet.insert_chart('G2', chart)
 writer.save()
-#tk.messagebox.showinfo('File Saved','Salvo em ' + file_to_save)
 print(binSheet)
-
-
-
-
-
-
-
-
-
 
 
 
